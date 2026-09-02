@@ -61,6 +61,22 @@ ComfyUI 自定义节点 `Patch Sol-Attn (MiniMax)`(v5)+ **comfy-kitchen int8 Sol
 
 没有任何 `[sol_attn]` 日志 = 节点没挂上或 verbose 关闭;出现 `kernel failed (...) falling back` = 内核未生效(检查编译产物/架构)。
 
+## 配套 LoRA(可选,top-k SLA 模式专用)
+
+**`minimax_h3_fl2v_turbo_4step_v0.1_768p_sla_comfyui_bf16.safetensors`**(≈2GB,lightx2v 官方 SLA 蒸馏 LoRA)
+
+- HF 首页:https://huggingface.co/lightx2v/Minimax-h3-Turbo-SLA
+- 直连下载:
+  ```
+  https://huggingface.co/lightx2v/Minimax-h3-Turbo-SLA/resolve/main/minimax_h3_fl2v_turbo_4step_v0.1_768p_sla_comfyui_bf16.safetensors
+  ```
+- 国内镜像(hf-mirror,速度快):
+  ```
+  https://hf-mirror.com/lightx2v/Minimax-h3-Turbo-SLA/resolve/main/minimax_h3_fl2v_turbo_4step_v0.1_768p_sla_comfyui_bf16.safetensors
+  ```
+- 放置: `ComfyUI/models/loras/`
+- 搭配:节点 `selection=top-k (SLA)`、`keep_percent=15`(蒸馏对齐值;10 更快)、采样 `steps=4`、`start_percent=0 / end_percent=1`、任务走 **fl2v/首尾帧**(FL2V 系蒸馏),参考音频 44.1kHz 立体声
+
 ## 常见问题
 
 - **编译失败 `CMake configuration failed`**:先删源码目录下的 `build/` 缓存再重编;确认 `cl.exe` 已就绪(脚本会走 vcvars64)
